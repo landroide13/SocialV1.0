@@ -11,8 +11,14 @@ const articleReducer = (state = initState, action) => {
   switch(action.type){
     case 'CREATE_ARTICLE':
       console.log('Created Article', action.article)
+      return state;
+    case 'CREATE_PROJECT_ERROR':
+      console.log('Created Article', action.err)
+      return state;
+    default:
+      return state;
   }
-  return state;
+  
 }
 
 
