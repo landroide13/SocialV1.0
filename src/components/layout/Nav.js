@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SignIn from './SignInLinks';
 import SignOut from './SignOutLinks';
+import { connect } from 'react-redux';
 
-export default () => {
+const Nav =  () => {
   return (
     <React.Fragment>
 
@@ -19,3 +20,13 @@ export default () => {
     </React.Fragment>
   )
 }
+
+const MapStateToProps = (state) =>{
+  console.log(state)
+  return{
+
+  }
+}
+
+
+export default connect(MapStateToProps)(Nav);
