@@ -1,18 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import SignIn from './SignInLinks';
-import SignOut from './SignOutLinks';
-import { connect } from 'react-redux';
 
-const Nav =  () => {
+import { connect } from 'react-redux';
+import SignInLinks from './SignInLinks';
+import SignOutLinks from './SignOutLinks';
+
+const Nav =  (props) => {
+
+  const { auth , profile } = props
+
+  const links = auth.uid ? <SignInLinks profile={profile} /> : <SignOutLinks />
+
   return (
     <React.Fragment>
 
       <nav className="nav-wrapper grey darken-3">
         <div className="container">
           <Link to='/' className="brand-logo">Social App</Link>
-            <SignIn />
-            <SignOut />
+            { links }
         </div>
       </nav>
 
@@ -22,9 +27,9 @@ const Nav =  () => {
 }
 
 const MapStateToProps = (state) =>{
-  console.log(state)
   return{
-
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   }
 }
 

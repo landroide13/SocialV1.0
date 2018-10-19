@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 import { createArticle } from '../../store/actions/articleActions';
 
 class CreateArticle extends Component {
@@ -21,6 +22,11 @@ class CreateArticle extends Component {
   }
 
   render() {
+
+    const { auth } = this.props
+
+    if(!auth.uid) return <Redirect to='/signin' />
+
     return (
       <React.Fragment>
 
@@ -50,6 +56,13 @@ class CreateArticle extends Component {
   }
 }
 
+const mapStateToProps = (state) =>{
+  return{
+    auth: state.firebase.auth
+  }
+}
+
+
 const MapDispatchToProps = (dispatch) =>{
   return{
     createArticle: (article) => dispatch(createArticle(article))
@@ -57,4 +70,4 @@ const MapDispatchToProps = (dispatch) =>{
 }
 
 
-export default connect(null, MapDispatchToProps)(CreateArticle);
+export default connect(mapStateToProps, MapDispatchToProps)(CreateArticle);

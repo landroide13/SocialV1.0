@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import { Redirect } from 'react-router-dom'
 import { compose } from 'redux';
 
  const ArticlesDetails = (props) => {
 
-  const { article } = props;
+  const { article, auth } = props;
 
   // console.log(props);
+
+  if(!auth.uid) return <Redirect to='/signin' />
 
   if(article){
     return(
@@ -18,7 +21,7 @@ import { compose } from 'redux';
             <p>{article.content}</p>
             <div className="card-action grey lighten-4 grey-text">
               <div>Posted by { article.authorFirstName } { article.authorLastName}</div>
-              <div>{ article.createdAt}</div>
+              <div>Now</div>
             </div>
           </div>
         </div>
@@ -46,7 +49,8 @@ const MapStateToProps = (state, ownProps) =>{
   const articles = state.firestore.data.articles
   const article = articles ? articles[id] : null
   return {
-    article: article
+    article: article,
+    auth: state.firebase.auth
   }
 }
 

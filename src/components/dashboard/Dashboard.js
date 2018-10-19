@@ -5,6 +5,7 @@ import ArticleList from '../articles/ArticlesList';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component {
 
@@ -12,7 +13,9 @@ class Dashboard extends Component {
   render() {
     // console.log(this.props)
 
-    const { articles } = this.props
+    const { articles, auth } = this.props
+
+    if(!auth.uid) return <Redirect to='/signin' />
 
     return (
       <React.Fragment>
@@ -35,7 +38,8 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return{
-    articles: state.firestore.ordered.articles
+    articles: state.firestore.ordered.articles,
+    auth: state.firebase.auth
   }
 }
 
