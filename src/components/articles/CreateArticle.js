@@ -19,6 +19,7 @@ class CreateArticle extends Component {
   handleOnSubmit = e => {
     e.preventDefault();
     this.props.createArticle(this.state);
+    this.props.history.push('/')
   }
 
   render() {
